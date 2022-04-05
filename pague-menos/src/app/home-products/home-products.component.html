@@ -1,1 +1,24 @@
-<p>home-products works!</p>
+<div class="card list-products">
+   <h5 class="card-header">Produtos</h5>
+   <div class="card-body">
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">Name</th>
+               <th scope="col">Ean</th>
+               <th scope="col">Category</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let prod of products">
+               <td>{{prod.name}}</td>
+               <td>{{prod.ean}}</td>
+               <td>{{prod.category || ''}}</td>
+               <td>
+                  <button type="button" class="btn btn-warning btn-sm">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm ml-1">Deletar</button>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
