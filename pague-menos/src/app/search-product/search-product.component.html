@@ -1,7 +1,15 @@
-<form class="navbar-form navbar-left" role="search" #prodForm="ngForm">
-   <div class="form-group">
-      <input type="text" id="nome" class="form-control" placeholder="Pesquise por produtos" #name="ngModel" required [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
-      {{ name.valid ? onChange() : clearSearch() }}
+<div class="row">
+   <div class="col-sm-10">
+      <form class="navbar-form navbar-left" role="search" #prodForm="ngForm">
+         <div class="form-group">
+            <input type="text" id="nome" class="form-control" placeholder="Pesquise por produtos" #name="ngModel"
+               required [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
+            {{ name.valid ? onChange() : clearSearch() }}
+         </div>
+      </form>
    </div>
- </form>
- <app-home-products [products]="name.valid ? searchProducts : products"></app-home-products>
+   <div class="col-sm-2">
+      <button type="button" class="btn btn-success">Cadastrar Compra</button>
+   </div>
+</div>
+<app-home-products [products]="name.valid ? searchProducts : products"></app-home-products>
