@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductsService {
 
   private url = 'http://localhost:8080/products';
-  private products: Product[] = [];
 
   constructor(
     private http: HttpClient
