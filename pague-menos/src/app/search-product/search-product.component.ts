@@ -9,7 +9,9 @@ import { ProductsService } from '../services/products.service';
 })
 export class SearchProductComponent implements OnInit {
 
+  product = {} as Product;
   products: Product[] = [];
+  searchProducts: Product[] = [];
 
   constructor(
     private prodService: ProductsService
@@ -23,6 +25,16 @@ export class SearchProductComponent implements OnInit {
     this.prodService.getProducts().subscribe(
       products => this.products = products
     );
+  }
+
+  onChange(): void{
+    this.prodService.findProductsByName(this.product.name, this.products).subscribe(
+      products => this.searchProducts = products
+    );
+  }
+
+  clearSearch(): void{
+    this.searchProducts = [];
   }
 
 }

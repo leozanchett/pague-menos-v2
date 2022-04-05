@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeProductsComponent } from './home-products/home-products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchProductComponent } from './search-product/search-product.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SearchProductComponent } from './search-product/search-product.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

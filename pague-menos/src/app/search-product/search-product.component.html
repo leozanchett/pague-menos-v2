@@ -1,7 +1,7 @@
-<form class="navbar-form navbar-left" role="search">
+<form class="navbar-form navbar-left" role="search" #prodForm="ngForm">
    <div class="form-group">
-     <input type="text" class="form-control" placeholder="Pesquise por produtos">
+      <input type="text" id="nome" class="form-control" placeholder="Pesquise por produtos" #name="ngModel" required [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
+      {{ name.valid ? onChange() : clearSearch() }}
    </div>
  </form>
-
- <app-home-products [products]="products"></app-home-products>
+ <app-home-products [products]="name.valid ? searchProducts : products"></app-home-products>

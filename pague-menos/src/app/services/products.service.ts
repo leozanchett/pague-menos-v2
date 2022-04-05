@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, pipe, tap } from 'rxjs';
 import { Product } from '../models/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -18,6 +18,14 @@ export class ProductsService {
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
+
+  findProductsByName(name: string, products: Product[]): Observable<Product[]> {
+    pipe(
+      tap(_ => this.log(`found products matching "${name}"`)),
+      catchError(this.handleError<Product[]>('findProductsByName', []))
+    );
+    return of(products.filter(product => product.name.toLowerCase().includes(name.toLowerCase())));    
+  }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.url).
