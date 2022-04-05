@@ -10,6 +10,7 @@ import { ProductsService } from '../services/products.service';
 })
 export class PurchaseComponent implements OnInit {
 
+  
   product = {} as Product;
 
   constructor(
@@ -18,6 +19,7 @@ export class PurchaseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
   }
 
   onSubmit(): void {
@@ -27,7 +29,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   backHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
 }

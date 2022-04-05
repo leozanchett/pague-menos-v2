@@ -20,7 +20,7 @@ export class SearchProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProducts();
+      this.getAllProducts();  
   }
 
   getAllProducts(): void {
@@ -29,19 +29,19 @@ export class SearchProductComponent implements OnInit {
     );
   }
 
-  onChange(): void{
+  onChange(): void {
     this.prodService.findProductsByName(this.product.name, this.products).subscribe(
       products => this.searchProducts = products
     );
   }
 
-  clearSearch(): void{
+  clearSearch(): void {
     this.searchProducts = [];
   }
 
-  goToNewPurchase(): void{
+  goToNewPurchase(): void {
     console.log('goToNewPurchase');
-    this.router.navigate(['/nova-compra']);
+    this.router.navigate(['home/nova-compra']);
   }
 
 }

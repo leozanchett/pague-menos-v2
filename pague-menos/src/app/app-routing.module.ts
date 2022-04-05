@@ -5,7 +5,7 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { SearchProductComponent } from './search-product/search-product.component';
 
 const routes: Routes = [
-  { path: 'nova-compra', component: PurchaseComponent },
+  { path: 'home/nova-compra', component: PurchaseComponent },
   { path: 'home', component: SearchProductComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
