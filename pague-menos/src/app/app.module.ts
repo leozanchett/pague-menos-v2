@@ -7,12 +7,14 @@ import { HomeProductsComponent } from './home-products/home-products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchProductComponent } from './search-product/search-product.component';
 import { FormsModule } from '@angular/forms';
+import { PurchaseComponent } from './purchase/purchase.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeProductsComponent,
-    SearchProductComponent
+    SearchProductComponent,
+    PurchaseComponent
   ],
   imports: [
     BrowserModule,
