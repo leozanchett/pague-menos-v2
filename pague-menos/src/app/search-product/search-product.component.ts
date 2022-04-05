@@ -41,7 +41,7 @@ export class SearchProductComponent implements OnInit {
 
   goToNewPurchase(): void{
     console.log('goToNewPurchase');
-    this.router.navigate(['/purchase']);
+    this.router.navigate(['/nova-compra']);
   }
 
 }
