@@ -1,1 +1,40 @@
-<h1>purchase works!</h1>
+<div class="container">
+   <form (ngSubmit)="onSubmit()" #prodForm="ngForm">
+      <div class="row">
+         <div class="col-sm-8">
+            <div class="form-group">
+               <label for="name">Nome</label>
+               <input type="text" class="form-control" id="name" #name="ngModel" required [(ngModel)]="product.name"
+                  name="name">
+               <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                  O nome do produto é obrigatório.
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-4">
+            <div class="form-group">
+               <label for="ean">Ean</label>
+               <input type="number" class="form-control" id="alterEgo" [(ngModel)]="product.ean" name="alterEgo">
+            </div>
+         </div>
+      </div>
+
+      <!-- <div class="form-group">
+            <label for="power">Estabelecimentos</label>
+            <select class="form-control" id="power" required [(ngModel)]="model.power" name="power">
+               <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+            </select>
+         </div> -->
+      <div class="row">
+         <div class="col-sm-1">
+            <button (click)="backHome()" type="submit" class="btn btn-primary"> Voltar
+            </button>
+         </div>
+         <div class="col-sm-2">
+            <button type="submit" class="btn btn-success" [disabled]="!prodForm.form.valid"> Finalizar Cadastro
+            </button>
+         </div>
+      </div>
+   </form>
+</div>
+{{ product | json }}
