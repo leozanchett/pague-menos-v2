@@ -23,13 +23,14 @@ export class PurchaseComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.product.category = "teste";
     console.log(this.product);
     console.log(JSON.stringify(this.product));
     this.productService.postProduct(this.product);
   }
 
   backHome(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']); 
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, pipe, tap } from 'rxjs';
+import { catchError, Observable, of, pipe, retry, tap } from 'rxjs';
 import { Product } from '../models/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -16,7 +16,10 @@ export class ProductsService {
 
   //headers
   private headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
   });
 
   findProductsByName(name: string, products: Product[]): Observable<Product[]> {
@@ -24,9 +27,10 @@ export class ProductsService {
       tap(_ => this.log(`found products matching "${name}"`)),
       catchError(this.handleError<Product[]>('findProductsByName', []))
     );
-    return of(products.filter(product => product.name.toLowerCase().includes(name.toLowerCase())));    
+    return of(products.filter(product => product.name.toLowerCase().includes(name.toLowerCase())));
   }
 
+  // GET
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.url).
       pipe(
@@ -34,6 +38,34 @@ export class ProductsService {
         catchError(this.handleError('getProducts', []))
       );
   }
+
+  // POST product
+  postProduct(product: Product): void {
+    this.http.options(this.url, { headers: this.headers });
+    this.http.post<Product>(this.url, product, { headers: this.headers }).
+      subscribe(
+        data => {
+          console.log(data);
+        },
+      );
+  }
+
+
+  // postProduct(product: Product): Observable<Product> {
+  //   try {
+  //     console.log('Posting product...');
+  //     return this.http.post<Product>(this.url, JSON.stringify(product), { headers: this.headers }).
+  //       pipe(
+  //         retry(2),
+  //         tap((newProduct: Product) => this.log(`added product w/ name=${newProduct.name}`)),
+  //         catchError(this.handleError<Product>('addProduct'))
+
+  //       );
+  //   } catch (e) {
+  //     this.handleError('erro cadastro produto', e);
+  //     return of(product);
+  //   }
+  // }
 
   private log(message: String) {
     console.log(`Products Service: ${message}`);
