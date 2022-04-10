@@ -30,7 +30,7 @@ export class SearchProductComponent implements OnInit {
   }
 
   onChange(): void {
-    this.prodService.findProductsByName(this.product.name, this.products).subscribe(
+    this.prodService.findProductsByName(this.product.description, this.products).subscribe(
       products => this.searchProducts = products
     );
   }

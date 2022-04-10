@@ -16,10 +16,7 @@ export class ProductsService {
 
   //headers
   private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
+    'Content-Type': 'application/json'
   });
 
   findProductsByName(name: string, products: Product[]): Observable<Product[]> {
@@ -27,7 +24,7 @@ export class ProductsService {
       tap(_ => this.log(`found products matching "${name}"`)),
       catchError(this.handleError<Product[]>('findProductsByName', []))
     );
-    return of(products.filter(product => product.name.toLowerCase().includes(name.toLowerCase())));
+    return of(products.filter(product => product.description.toLowerCase().includes(name.toLowerCase())));
   }
 
   // GET

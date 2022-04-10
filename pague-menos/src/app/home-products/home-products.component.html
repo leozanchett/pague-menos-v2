@@ -4,16 +4,20 @@
       <table class="table">
          <thead>
             <tr>
-               <th scope="col">Name</th>
-               <th scope="col">Ean</th>
-               <th scope="col">Category</th>
+               <th scope="col">ID</th>
+               <th scope="col">Descricao</th>
+               <th scope="col">Qtde. Atual</th>
+               <th scope="col">Consumo Mes</th>
+               <th scope="col">Precisa Comprar</th>
             </tr>
          </thead>
          <tbody>
             <tr *ngFor="let prod of products">
-               <td>{{prod.name}}</td>
-               <td>{{prod.ean}}</td>
-               <td>{{prod.category || ''}}</td>
+               <th scope="row">{{ prod.id }}</th>
+               <td>{{prod.description}}</td>
+               <td>{{prod.stock.quantityNow || 0}}</td>
+               <td>{{prod.stock.quantityMonthConsumption}}</td>
+               <td>{{stockService.precisaComprar(prod.stock)}}</td>
                <td>
                   <button type="button" class="btn btn-warning btn-sm">Editar</button>
                   <button type="button" class="btn btn-danger btn-sm ml-1">Deletar</button>

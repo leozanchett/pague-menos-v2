@@ -4,10 +4,10 @@
          <div class="col-sm-8">
             <div class="form-group">
                <label for="name">Nome</label>
-               <input type="text" class="form-control" id="name" #name="ngModel" required [(ngModel)]="product.name"
+               <input type="text" class="form-control" id="name" #name="ngModel" required [(ngModel)]="product.description"
                   name="name">
                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                  O nome do produto Ã© obrigatÃ³rio.
+                  O nome do produto é obrigatório.
                </div>
             </div>
          </div>

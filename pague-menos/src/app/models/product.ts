@@ -1,6 +1,9 @@
+import { Stock } from "./stock";
+
 export interface Product {
-   name: string;
+   id: number;
+   description: string;
    ean: string;
-   historics: any[];
+   stock: Stock;
    category: string;
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../models/product';
-import { ProductsService } from '../services/products.service';
+import { StockService } from '../services/stock.service';
 
 @Component({
   selector: 'app-home-products',
@@ -13,7 +13,7 @@ export class HomeProductsComponent implements OnInit {
   @Input() products: Product[] = [];
 
   constructor(
-    private prodService: ProductsService
+    public stockService: StockService
   ) { }
 
   ngOnInit(): void {
