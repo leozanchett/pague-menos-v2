@@ -4,11 +4,16 @@
       <table class="table">
          <thead>
             <tr>
-               <th scope="col">ID</th>
-               <th scope="col">Descricao</th>
-               <th scope="col">Qtde. Atual</th>
-               <th scope="col">Consumo Mes</th>
-               <th scope="col">Precisa Comprar</th>
+               <th scope="col">ID<br>---</th>
+               <th scope="col">Descricao<br>---</th>
+               <th scope="col">Quantidade<br>Atual</th>
+               <th scope="col">Consumo<br> Mes</th>
+               <th scope="col">Precisa<br>Comprar</th>
+               <th scope="col">Estabelecimento<br>(menor preco)</th>
+               <th scope="col">Preco<br>(menor)</th>
+               <th scope="col">Data<br>(menor preco)</th>
+               <th scope="col">Estabelecimento<br>(maior preco)</th>
+               <th scope="col">Preco<br>(maior)</th>
             </tr>
          </thead>
          <tbody>
@@ -18,10 +23,16 @@
                <td>{{prod.stock.quantityNow || 0}}</td>
                <td>{{prod.stock.quantityMonthConsumption}}</td>
                <td>{{stockService.precisaComprar(prod.stock)}}</td>
+               <td>Caita</td>
+               <td>{{purchasesService.returnlowerPrice(prod.purchase) | currency }}</td>
+               <td>{{prod.purchase && prod.purchase[0].purchaseDate | date}} </td>
+               <td>Caita</td>
+               <td>{{purchasesService.returnHigherPrice(prod.purchase) | currency }} </td>
                <td>
                   <button type="button" class="btn btn-warning btn-sm">Editar</button>
                   <button type="button" class="btn btn-danger btn-sm ml-1">Deletar</button>
                </td>
+
             </tr>
          </tbody>
       </table>

@@ -1,3 +1,4 @@
+import { Purchase } from "./purchase";
 import { Stock } from "./stock";
 
 export interface Product {
@@ -5,5 +6,5 @@ export interface Product {
    description: string;
    ean: string;
    stock: Stock;
-   category: string;
+   purchase: Purchase[] | null | undefined;
 }
