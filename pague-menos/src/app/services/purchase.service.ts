@@ -6,26 +6,21 @@ import { Purchase } from '../models/purchase';
 })
 export class PurchaseService {
 
-  constructor() { }
-
-
   public returnlowerPrice(purchases: Purchase[] | null | undefined): number {
     let lowerPrice = 0;
-    if (purchases) {
+    if (purchases && purchases.length > 0) {
       purchases.forEach(purchase => {
         if (purchase.unitPrice < lowerPrice || lowerPrice === 0) {
           lowerPrice = purchase.unitPrice;
         }
       });
-      return lowerPrice;}
-    else {
-      return 0;
     }
+    return lowerPrice;
   }
 
   public returnHigherPrice(purchases: Purchase[] | null | undefined): number {
     let higherPrice = 0;
-    if (purchases) {
+    if (purchases && purchases.length > 0) {
       purchases.forEach(purchase => {
         if (purchase.unitPrice > higherPrice || higherPrice === 0) {
           higherPrice = purchase.unitPrice;
@@ -36,5 +31,31 @@ export class PurchaseService {
       return 0;
     }
   }
+
+  public returnDateOfTheLowestPrice(purchases: Purchase[] | null | undefined): Date | null {
+    let dateOfTheLowestPrice: Date | null = null;
+    if (purchases && purchases.length > 0) {
+      purchases.forEach(purchase => {
+        if (purchase.unitPrice === this.returnlowerPrice(purchases)) {
+          dateOfTheLowestPrice = purchase.purchaseDate;
+        }
+      });
+    }
+    return dateOfTheLowestPrice;
+  }
+
+  public returnDateOfTheHighestPrice(purchases: Purchase[] | null | undefined): Date | null {
+    let dateOfTheHighestPrice: Date | null = null;
+    if (purchases && purchases.length > 0) {
+      purchases.forEach(purchase => {
+        if (purchase.unitPrice === this.returnHigherPrice(purchases)) {
+          dateOfTheHighestPrice = purchase.purchaseDate;
+        }
+      });
+    }
+    return dateOfTheHighestPrice;
+  }
+
+  
 
 }

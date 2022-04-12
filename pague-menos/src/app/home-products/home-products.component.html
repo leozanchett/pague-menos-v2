@@ -1,19 +1,21 @@
 <div class="card list-products">
    <h5 class="card-header">Produtos</h5>
    <div class="card-body">
-      <table class="table">
+      <table class="table table-dark table-hover table-responsive">
+         <caption id="prod-cadastrados">Produtos Cadastrados</caption>
          <thead>
             <tr>
-               <th scope="col">ID<br>---</th>
-               <th scope="col">Descricao<br>---</th>
-               <th scope="col">Quantidade<br>Atual</th>
-               <th scope="col">Consumo<br> Mes</th>
-               <th scope="col">Precisa<br>Comprar</th>
-               <th scope="col">Estabelecimento<br>(menor preco)</th>
+               <th scope="col">ID</th>
+               <th scope="col">Descricao</th>
+               <th scope="col">Quantidade atual</th>
+               <th scope="col">Consumo mes</th>
+               <th scope="col">Precisa comprar</th>
+               <th scope="col">Estabelecimento (menor preco)</th>
                <th scope="col">Preco<br>(menor)</th>
-               <th scope="col">Data<br>(menor preco)</th>
+               <th scope="col">Data (menor preco)</th>
                <th scope="col">Estabelecimento<br>(maior preco)</th>
                <th scope="col">Preco<br>(maior)</th>
+               <th scope="col">Data (maior preco)</th>
             </tr>
          </thead>
          <tbody>
@@ -25,12 +27,13 @@
                <td>{{stockService.precisaComprar(prod.stock)}}</td>
                <td>Caita</td>
                <td>{{purchasesService.returnlowerPrice(prod.purchase) | currency }}</td>
-               <td>{{prod.purchase && prod.purchase[0].purchaseDate | date}} </td>
+               <td>{{purchasesService.returnDateOfTheLowestPrice(prod.purchase)}} </td>
                <td>Caita</td>
                <td>{{purchasesService.returnHigherPrice(prod.purchase) | currency }} </td>
+               <td>{{purchasesService.returnDateOfTheHighestPrice(prod.purchase)}}</td>
                <td>
-                  <button type="button" class="btn btn-warning btn-sm">Editar</button>
-                  <button type="button" class="btn btn-danger btn-sm ml-1">Deletar</button>
+                  <button style="margin-bottom: 3px;" type="button" class="btn btn-warning btn-sm">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm">Deletar</button>
                </td>
 
             </tr>

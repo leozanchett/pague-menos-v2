@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../models/product';
+import { Purchase } from '../models/purchase';
 import { PurchaseService } from '../services/purchase.service';
 import { StockService } from '../services/stock.service';
 
@@ -21,5 +22,6 @@ export class HomeProductsComponent implements OnInit {
   ngOnInit(): void {
   
   }
+ 
 
 }

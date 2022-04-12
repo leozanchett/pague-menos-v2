@@ -4,7 +4,13 @@
 
 th {
    font-size: 12px;
+   vertical-align: middle;
 }
 td {
    font-size: 15px;
+   vertical-align: middle;
+}
+
+#prod-cadastrados{
+   font-size: 12px;
 }
