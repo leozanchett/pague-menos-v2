@@ -39,9 +39,9 @@ export class SearchProductComponent implements OnInit {
     this.searchProducts = [];
   }
 
-  goToNewPurchase(): void {
+  /*goToNewPurchase(): void {
     console.log('goToNewPurchase');
     this.router.navigate(['home/nova-compra']);
-  }
+  }*/
 
 }
