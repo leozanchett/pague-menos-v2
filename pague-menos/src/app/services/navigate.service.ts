@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
+
+
+
+
 export class NavigateService {
 
   constructor(
@@ -13,4 +17,6 @@ export class NavigateService {
   navigateTo(url: string): void {
     this.router.navigate([url]);
   }
+
+  
 }

@@ -8,9 +8,8 @@ import { ProductsService } from '../services/products.service';
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.css']
 })
-export class PurchaseComponent implements OnInit {
+export class PurchaseComponent implements OnInit { 
 
-  
   product = {} as Product;
 
   constructor(
