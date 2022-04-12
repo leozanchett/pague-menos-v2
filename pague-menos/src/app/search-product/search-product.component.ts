@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Product } from '../models/product';
 import { ProductsService } from '../services/products.service';
 
@@ -15,8 +14,7 @@ export class SearchProductComponent implements OnInit {
   searchProducts: Product[] = [];
 
   constructor(
-    private prodService: ProductsService,
-    private router: Router
+    private prodService: ProductsService
   ) { }
 
   ngOnInit(): void {
@@ -38,10 +36,5 @@ export class SearchProductComponent implements OnInit {
   clearSearch(): void {
     this.searchProducts = [];
   }
-
-  /*goToNewPurchase(): void {
-    console.log('goToNewPurchase');
-    this.router.navigate(['home/nova-compra']);
-  }*/
 
 }

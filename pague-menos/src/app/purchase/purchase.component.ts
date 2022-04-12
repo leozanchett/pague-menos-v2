@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Product } from '../models/product';
+import { NavigateService } from '../services/navigate.service';
 import { ProductsService } from '../services/products.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class PurchaseComponent implements OnInit {
 
   constructor(
     private productService: ProductsService,
-    private router: Router
+    public navigateService: NavigateService
   ) { }
 
   ngOnInit(): void {
@@ -26,10 +26,6 @@ export class PurchaseComponent implements OnInit {
     console.log(this.product);
     console.log(JSON.stringify(this.product));
     this.productService.postProduct(this.product);
-  }
-
-  backHome(): void {
-    this.router.navigate(['/home']); 
   }
 
 }
