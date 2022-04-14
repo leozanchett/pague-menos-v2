@@ -3,4 +3,5 @@ export interface Purchase {
    unitPrice: number;
    quantity: number;
    purchaseDate: Date;
+   totalPrice: number;
 }
