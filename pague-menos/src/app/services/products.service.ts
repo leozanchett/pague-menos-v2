@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, pipe, retry, tap } from 'rxjs';
+import { catchError, lastValueFrom, Observable, of, pipe, retry, tap } from 'rxjs';
 import { Product } from '../models/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductsService {
 
   private url = 'http://localhost:8080/products';
+
+  private static produts: Product[];
 
   constructor(
     private http: HttpClient
@@ -20,20 +23,22 @@ export class ProductsService {
   });
 
   findProductsByName(name: string, products: Product[]): Observable<Product[]> {
-    pipe(
-      tap(_ => this.log(`found products matching "${name}"`)),
-      catchError(this.handleError<Product[]>('findProductsByName', []))
-    );
     return of(products.filter(product => product.description.toLowerCase().includes(name.toLowerCase())));
   }
 
   // GET
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url).
-      pipe(
-        tap(_ => this.log('fetched products')),
+      return this.http.get<Product[]>(this.url).pipe(
+        tap(products => {
+          this.log('fetched products');
+          ProductsService.produts = products;
+        }),
         catchError(this.handleError('getProducts', []))
       );
+  }
+
+  getPromissesProducts(): Promise<Product[]> {
+    return lastValueFrom(this.http.get<Product[]>(this.url));
   }
 
   // POST product

@@ -1,30 +1,57 @@
-<div class="container">
+<form >
+   <mat-form-field >
+     <input type="text"
+         
+            aria-label="Number"
+            matInput 
+            form="purchaseForm"         
+            [matAutocomplete]="auto">
+     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+         {{option}}
+       </mat-option>
+     </mat-autocomplete>
+   </mat-form-field>
+ </form>
+
+<!-- <div class="container">
    <form (ngSubmit)="onSubmit()" #prodForm="ngForm">
       <div class="row">
-         <div class="col-sm-8">
-            <div class="form-group">
-               <label for="name">Nome</label>
+         <div class="col-sm-8"> -->
+            <!-- <div class="form-group">
+               <input type="text"
+                  placeholder="Pick one"
+                  aria-label="Produto"
+                  matInput
+                  form="purchaseForm"
+                  [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+               </mat-option>
+            </mat-autocomplete> -->
+               <!-- <label for="name">Nome</label>
                <input type="text" class="form-control" id="name" #name="ngModel" required [(ngModel)]="product.description"
                   name="name">
                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
                   O nome do produto é obrigatório.
-               </div>
+               </div> 
             </div>
          </div>
-         <div class="col-sm-4">
+          <div class="col-sm-4">
             <div class="form-group">
                <label for="ean">Ean</label>
                <input type="text" class="form-control" id="alterEgo" [(ngModel)]="product.ean" name="alterEgo">
             </div>
-         </div>
-      </div>
+         </div> 
+      </div>-->
 
-      <!-- <div class="form-group">
+       <!-- <div class="form-group">
             <label for="power">Estabelecimentos</label>
             <select class="form-control" id="power" required [(ngModel)]="model.power" name="power">
                <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
             </select>
-         </div> -->
+         </div>
       <div class="row">
          <div class="col-sm-1">
             <button (click)="navigateService.navigateTo('home')" type="button" class="btn btn-primary"> Voltar
@@ -34,7 +61,7 @@
             <button type="submit" class="btn btn-success" [disabled]="!prodForm.form.valid"> Finalizar Cadastro
             </button>
          </div>
-      </div>
-   </form>
-</div>
-{{ product | json }}
+      </div> -->
+   <!-- </form>
+</div> -->
+<!-- {{ product | json }} -->

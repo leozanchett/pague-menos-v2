@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigateService } from '../services/navigate.service';
+import { Route, Router } from '@angular/router';
 
 enum ActivePage {
   HOME = "HOME",
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   public activePage: ActivePage = ActivePage.HOME;
 
   constructor(
-    public navigateService: NavigateService
+    private router: Router
   ) {  }
 
   ngOnInit(): void {
@@ -31,6 +31,14 @@ export class NavbarComponent implements OnInit {
         this.activePage = ActivePage.PURCHASE;
         break;
     }
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl("/home");
+  }
+
+  goToPurchase(): void {
+    this.router.navigateByUrl("/nova-compra");
   }
 
 }
