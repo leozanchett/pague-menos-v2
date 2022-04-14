@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, lastValueFrom, Observable, of, pipe, retry, tap } from 'rxjs';
 import { Product } from '../models/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Urls } from '../models/urls';
 
 
 @Injectable({
@@ -9,9 +10,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ProductsService {
 
-  private url = 'http://localhost:8080/products';
+  private readonly url = Urls.baseURL + '/products';
 
-  private static produts: Product[];
+  private produts: Product[] = [];
 
   constructor(
     private http: HttpClient
@@ -31,7 +32,7 @@ export class ProductsService {
       return this.http.get<Product[]>(this.url).pipe(
         tap(products => {
           this.log('fetched products');
-          ProductsService.produts = products;
+          this.produts = products;
         }),
         catchError(this.handleError('getProducts', []))
       );

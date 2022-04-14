@@ -1,81 +1,82 @@
 <meta charset='utf-8'>
-
-
-<div *ngIf="descProds.length > 0">
-   <form (ngSubmit)="onSubmit()" #prodForm="ngForm">
-      <div class="row">
-         <div class="col-sm-8">
-            <mat-form-field class="full-width">
-               <label>Descrição produto</label>
-               <input type="text" matInput [matAutocomplete]="auto" id="description" name="description"
-                  #description="ngModel" required [(ngModel)]="product.description">
-               <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
-                  O nome do produto é obrigatório.
-               </div>
-               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                     {{option}}
-                  </mat-option>
-               </mat-autocomplete>
-            </mat-form-field>
-         </div>
-         <div class="col-sm-4">
-            <mat-form-field class="full-width">
-               <label>Estabelecimento</label>
-               <input type="text" aria-label="text" matInput form="purchaseForm" [matAutocomplete]="auto"
-                  id="description" name="description">
-               <!-- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+<!-- #description="ngModel" required [(ngModel)]="product.description"  
+[formControl]="productDescForm"
+-->
+<form (ngSubmit)="onSubmit()" #prodForm="ngForm">
+   <div class="row">
+      <div class="col-sm-8">
+         <mat-form-field class="full-width">
+            <label>Descrição produto</label>
+            <input type="text" matInput [matAutocomplete]="prodAuto"  id="description" name="description"
+               #description="ngModel" required [(ngModel)]="product.description" />
+            <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
                O nome do produto é obrigatório.
-            </div> -->
-               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                     {{option}}
-                  </mat-option>
-               </mat-autocomplete>
-            </mat-form-field>
+            </div>
+            <mat-autocomplete #prodAuto="matAutocomplete">
+               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+               </mat-option>
+            </mat-autocomplete>
+         </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+         <mat-form-field class="full-width">
+            <label>Estabelecimento</label>
+            <input type="text" matInput [matAutocomplete]="establishmentAuto" id="establishment" name="establishment"
+               #nameEstablishment="ngModel" required [(ngModel)]="establishment.name" />
+            <div [hidden]="nameEstablishment.valid || nameEstablishment.pristine" class="alert alert-danger">
+               O nome do produto é obrigatório.
+            </div>
+            <mat-autocomplete #establishmentAuto="matAutocomplete">
+               <mat-option *ngFor="let option of filteredEstablishments | async" [value]="option">
+                  {{option}}
+               </mat-option>
+            </mat-autocomplete>
+         </mat-form-field>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-4">
+         <label>Quantidade</label>
+         <input (input)="calculateTotalPurchase()" type="number" class="form-control" id="quantity" name="quantity"
+            #quantity="ngModel" required [(ngModel)]="purchase.quantity" />
+         <div [hidden]="quantity.valid || quantity.pristine" class="alert alert-danger">
+            A quantidade é obrigatória.
          </div>
       </div>
-      <div class="row">
-         <div class="col-sm-4">
-            <label>Quantidade</label>
-            <input (input)="calculateTotalPurchase()"  type="number" class="form-control" id="quantity" name="quantity" #quantity="ngModel" required
-               [(ngModel)]="purchase.quantity" />
-            <div [hidden]="quantity.valid || quantity.pristine" class="alert alert-danger">
-               A quantidade é obrigatória.
-            </div>
+      <div class="col-sm-4">
+         <label>Preço</label>
+         <input (input)="calculateTotalPurchase()" type="number" class="form-control" min="1" step="any"
+            form="purchaseForm" id="unitPrice" name="unitPrice" #unitPrice="ngModel" required
+            [(ngModel)]="purchase.unitPrice">
+         <div [hidden]="unitPrice.valid || unitPrice.pristine" class="alert alert-danger">
+            O preço é obrigatório.
          </div>
-         <div class="col-sm-4">
-            <label>Preço</label>
-            <input (input)="calculateTotalPurchase()"  type="number" class="form-control" min="1" step="any" form="purchaseForm" id="unitPrice"
-               name="unitPrice" #unitPrice="ngModel" required [(ngModel)]="purchase.unitPrice">
-            <div [hidden]="unitPrice.valid || unitPrice.pristine" class="alert alert-danger">
-               O preço é obrigatório.
-            </div>
-         </div>
-         <div class="col-sm-4">
-            <div class="form-group">
-               <label>EAN</label>
-               <input type="text" class="form-control" id="ean" name="ean" #ean="ngModel" [(ngModel)]="product.ean">
+      </div>
+      <div class="col-sm-4">
+         <div class="form-group">
+            <label>EAN</label>
+            <input type="text" class="form-control" id="ean" name="ean" #ean="ngModel" [(ngModel)]="product.ean">
 
-            </div>
          </div>
       </div>
-      <div class="row">
-         <div class="col-sm-10">
-         </div>
-         <div class="col-sm-2">
-            <label>Total</label>
-            <div class="form-control">
-               {{purchase.totalPrice || 0 | currency}}
-            </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-10">
+      </div>
+      <div class="col-sm-2">
+         <label>Total</label>
+         <div class="form-control">
+            {{purchase.totalPrice || 0 | currency}}
          </div>
       </div>
-      <div class="col-sm-12">
-         <button type="submit" class="btn btn-success" [disabled]="!prodForm.form.valid"> Finalizar Cadastro
-         </button>
-      </div>
-   </form>
-</div>
+   </div>
+   <div class="col-sm-12">
+      <button type="submit" class="btn btn-success" [disabled]="!prodForm.form.valid"> Finalizar Cadastro
+      </button>
+   </div>
+</form>
+
 Product Obj{{ product | json }}
 <br>
 Purchase Obj{{ purchase | json }}
