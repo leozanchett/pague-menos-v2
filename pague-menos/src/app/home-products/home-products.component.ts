@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../models/product';
+import { CheaperProduct } from '../models/cheaper-product';
 import { PurchaseService } from '../services/purchase.service';
 import { StockService } from '../services/stock.service';
 
@@ -11,7 +11,7 @@ import { StockService } from '../services/stock.service';
 export class HomeProductsComponent implements OnInit {
 
 
-  @Input() products: Product[] = [];
+  @Input() cheaperProducts: CheaperProduct[] = [];
 
   constructor(
     public stockService: StockService,

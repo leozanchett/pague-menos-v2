@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product';
-import { ProductsService } from '../services/products.service';
+import { CheaperProduct } from '../models/cheaper-product';
+import { CheaperProductsService } from '../services/cheaper-product.service';
 
 @Component({
   selector: 'app-search-product',
@@ -9,12 +9,12 @@ import { ProductsService } from '../services/products.service';
 })
 export class SearchProductComponent implements OnInit {
 
-  product = {} as Product;
-  products: Product[] = [];
-  searchProducts: Product[] = [];
+  cheaperProduct = {} as CheaperProduct;
+  cheaperProducts: CheaperProduct[] = [];
+  searchProducts: CheaperProduct[] = [];
 
   constructor(
-    private prodService: ProductsService
+    private cheaperProductService: CheaperProductsService
   ) { }
 
   ngOnInit(): void {
@@ -22,13 +22,13 @@ export class SearchProductComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.prodService.getProducts().subscribe(
-      products => this.products = products
+    this.cheaperProductService.getCheaperProducts().subscribe(
+      products => this.cheaperProducts = products
     );
   }
 
   onChange(): void {
-    this.prodService.findProductsByName(this.product.description, this.products).subscribe(
+    this.cheaperProductService.findProductsByName(this.cheaperProduct.description, this.cheaperProducts).subscribe(
       products => this.searchProducts = products
     );
   }
