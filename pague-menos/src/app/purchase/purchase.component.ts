@@ -20,8 +20,9 @@ export class PurchaseComponent implements OnInit {
   product = {} as Product;
   purchase = {} as Purchase;
   establishment = {} as Establishment;
-  productControl = new FormControl();
+  productControl = new FormControl('', Validators.required);
   establishmentControl = new FormControl('', Validators.required);
+  totalPrice: number | undefined;
   descProds: string[] = [];
   descEstablishment: string[] = [];
   filteredOptions = new Observable<string[]>();
@@ -64,8 +65,12 @@ export class PurchaseComponent implements OnInit {
   }
 
   public calculateTotalPurchase(): void {
-    console.log(this.purchase);
+    this.purchase.unitPrice =  parseInt(this.purchase.unitPrice.toString().replace(',', ''));
     this.purchase.totalPrice = (this.purchase.unitPrice || 0) * (this.purchase.quantity || 0);
+  }
+
+  public calculateUnitPrice(): void {
+    this.purchase.unitPrice =  (this.purchase.totalPrice || 0) / (this.purchase.quantity || 0);
   }
 
   finishPurchase(): void {
