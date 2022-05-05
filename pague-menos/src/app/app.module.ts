@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

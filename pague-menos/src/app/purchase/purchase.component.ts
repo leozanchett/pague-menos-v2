@@ -8,6 +8,7 @@ import { Purchase } from '../models/purchase';
 import { EstablishmentService } from '../services/establishment.service';
 import { ProductsService } from '../services/products.service';
 import { PurchaseService } from '../services/purchase.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-purchase',
@@ -26,13 +27,14 @@ export class PurchaseComponent implements OnInit {
   filteredOptions = new Observable<string[]>();
   filteredEstablishments = new Observable<string[]>();
   constructor(
-    private productService: ProductsService,
-    private establishmentService: EstablishmentService,
-    private purchaseService: PurchaseService
+    private _productService: ProductsService,
+    private _establishmentService: EstablishmentService,
+    private _purchaseService: PurchaseService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.productService.getPromissesProducts().then(products => {
+    this._productService.getPromissesProducts().then(products => {
       this.descProds = products.map(product => product.description);
       this.filteredOptions = this.productControl.valueChanges
         .pipe(
@@ -43,7 +45,7 @@ export class PurchaseComponent implements OnInit {
           })
         );
     });
-    this.establishmentService.getPromissesEstablishments().then(establishments => {
+    this._establishmentService.getPromissesEstablishments().then(establishments => {
       this.descEstablishment = establishments.map(establishment => establishment.name);
       this.filteredEstablishments = this.establishmentControl.valueChanges
         .pipe(
@@ -73,17 +75,21 @@ export class PurchaseComponent implements OnInit {
 
     console.log(JSON.stringify(this.purchase));
     // purshaseService.postPurchase(this.purchase); with subscribe
-    this.purchaseService.postPurchase(this.purchase).subscribe({
+    this._purchaseService.postPurchase(this.purchase).subscribe({
       next: (data) => {
         console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        this.openSnackBar('OPS ' + err.message, 'Fechar');
       },
       complete: () => {
-        console.log('complete');
+        this.openSnackBar('Compra realizada com sucesso', 'Fechar');
       }
     });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 }
 
