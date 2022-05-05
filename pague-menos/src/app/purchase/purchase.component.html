@@ -2,16 +2,16 @@
 <!-- #description="ngModel" required [(ngModel)]="product.description"  
 [formControl]="productDescForm"
 -->
-<form (ngSubmit)="onSubmit()" #prodForm="ngForm">
+<form (ngSubmit)="finishPurchase()" #purchaseForm="ngForm">
    <div class="row">
       <div class="col-sm-8">
          <mat-form-field class="full-width">
-            <label>Descrição produto</label>
-            <input type="text" matInput [matAutocomplete]="prodAuto"  id="description" name="description"
-               #description="ngModel" required [(ngModel)]="product.description" />
-            <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+            <mat-label>Descrição produto</mat-label>
+            <input type="text" matInput [formControl]="productControl" [matAutocomplete]="prodAuto" id="description"
+               name="description" />
+            <div [hidden]="productControl.valid || productControl.pristine" class="alert alert-danger">
                O nome do produto é obrigatório.
-            </div>
+            </div> 
             <mat-autocomplete #prodAuto="matAutocomplete">
                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                   {{option}}
@@ -21,11 +21,10 @@
       </div>
       <div class="col-sm-4">
          <mat-form-field class="full-width">
-            <label>Estabelecimento</label>
-            <input type="text" matInput [matAutocomplete]="establishmentAuto" id="establishment" name="establishment"
-               #nameEstablishment="ngModel" required [(ngModel)]="establishment.name" />
-            <div [hidden]="nameEstablishment.valid || nameEstablishment.pristine" class="alert alert-danger">
-               O nome do produto é obrigatório.
+            <mat-label>Estabelecimento</mat-label>
+            <input type="text" matInput [formControl]="establishmentControl" [matAutocomplete]="establishmentAuto" id="establishment" name="establishment"/>
+            <div [hidden]="establishmentControl.valid || establishmentControl.pristine" class="alert alert-danger">
+               O nome do estabeleceminto é obrigatório.
             </div>
             <mat-autocomplete #establishmentAuto="matAutocomplete">
                <mat-option *ngFor="let option of filteredEstablishments | async" [value]="option">
@@ -72,11 +71,7 @@
       </div>
    </div>
    <div class="col-sm-12">
-      <button type="submit" class="btn btn-success" [disabled]="!prodForm.form.valid"> Finalizar Cadastro
+      <button type="submit" class="btn btn-success" [disabled]="!purchaseForm.form.valid || !establishmentControl.valid || !productControl.valid "> Finalizar Cadastro
       </button>
    </div>
 </form>
-
-Product Obj{{ product | json }}
-<br>
-Purchase Obj{{ purchase | json }}

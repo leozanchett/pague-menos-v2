@@ -4,4 +4,7 @@ export interface Purchase {
    quantity: number;
    purchaseDate: Date;
    totalPrice: number;
+   productDescription: string;
+   establishmentDescription: string;
+   ean: string;
 }

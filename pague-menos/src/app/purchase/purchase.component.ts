@@ -7,6 +7,7 @@ import { Product } from '../models/product';
 import { Purchase } from '../models/purchase';
 import { EstablishmentService } from '../services/establishment.service';
 import { ProductsService } from '../services/products.service';
+import { PurchaseService } from '../services/purchase.service';
 
 @Component({
   selector: 'app-purchase',
@@ -18,7 +19,7 @@ export class PurchaseComponent implements OnInit {
   product = {} as Product;
   purchase = {} as Purchase;
   establishment = {} as Establishment;
-  productDescForm = new FormControl();
+  productControl = new FormControl();
   establishmentControl = new FormControl('', Validators.required);
   descProds: string[] = [];
   descEstablishment: string[] = [];
@@ -26,16 +27,20 @@ export class PurchaseComponent implements OnInit {
   filteredEstablishments = new Observable<string[]>();
   constructor(
     private productService: ProductsService,
-    private establishmentService: EstablishmentService
+    private establishmentService: EstablishmentService,
+    private purchaseService: PurchaseService
   ) { }
 
   ngOnInit(): void {
     this.productService.getPromissesProducts().then(products => {
       this.descProds = products.map(product => product.description);
-      this.filteredOptions = this.productDescForm.valueChanges
+      this.filteredOptions = this.productControl.valueChanges
         .pipe(
           startWith(''),
-          map(value => this._filter(value, this.descProds))
+          map(value => {
+            this.product.description = value;
+            return this._filter(value, this.descProds)
+          })
         );
     });
     this.establishmentService.getPromissesEstablishments().then(establishments => {
@@ -43,27 +48,43 @@ export class PurchaseComponent implements OnInit {
       this.filteredEstablishments = this.establishmentControl.valueChanges
         .pipe(
           startWith(''),
-          map(value => this._filter(value, this.descEstablishment))
+          map(value => {
+            this.establishment.name = value;
+            return this._filter(value, this.descEstablishment)
+          })
         );
     });
   }
 
-  private _filter(value: string, options: string[] ): string[] {
+  private _filter(value: string, options: string[]): string[] {
     const filterValue = value.toLowerCase();
     return options.filter(option => option.toLowerCase().includes(filterValue));
   }
-  
+
   public calculateTotalPurchase(): void {
     console.log(this.purchase);
     this.purchase.totalPrice = (this.purchase.unitPrice || 0) * (this.purchase.quantity || 0);
   }
 
-  onSubmit(): void {
-    // console.log(this.product);
-    // console.log(JSON.stringify(this.product));
-    //this.productService.postProduct(this.product);
-  }
+  finishPurchase(): void {
+    this.purchase.productDescription = this.product.description;
+    this.purchase.establishmentDescription = this.establishment.name;
+    this.purchase.purchaseDate = new Date();
 
+    console.log(JSON.stringify(this.purchase));
+    // purshaseService.postPurchase(this.purchase); with subscribe
+    this.purchaseService.postPurchase(this.purchase).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
+  }
 }
 
 

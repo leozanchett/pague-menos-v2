@@ -53,23 +53,6 @@ export class ProductsService {
       );
   }
 
-
-  // postProduct(product: Product): Observable<Product> {
-  //   try {
-  //     console.log('Posting product...');
-  //     return this.http.post<Product>(this.url, JSON.stringify(product), { headers: this.headers }).
-  //       pipe(
-  //         retry(2),
-  //         tap((newProduct: Product) => this.log(`added product w/ name=${newProduct.name}`)),
-  //         catchError(this.handleError<Product>('addProduct'))
-
-  //       );
-  //   } catch (e) {
-  //     this.handleError('erro cadastro produto', e);
-  //     return of(product);
-  //   }
-  // }
-
   private log(message: String) {
     console.log(`Products Service: ${message}`);
   }

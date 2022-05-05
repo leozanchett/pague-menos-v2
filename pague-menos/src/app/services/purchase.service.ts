@@ -1,10 +1,25 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { Purchase } from '../models/purchase';
+import { Urls } from '../models/urls';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseService {
+
+  private readonly url = Urls.baseURL + '/purchase';
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  //headers
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
 
   public returnlowerPrice(purchases: Purchase[] | null | undefined): number {
     let lowerPrice = 0;
@@ -26,7 +41,8 @@ export class PurchaseService {
           higherPrice = purchase.unitPrice;
         }
       });
-      return higherPrice;}
+      return higherPrice;
+    }
     else {
       return 0;
     }
@@ -56,6 +72,10 @@ export class PurchaseService {
     return dateOfTheHighestPrice;
   }
 
-  
+  // make a post request to purchase
+  public postPurchase(purchase: Purchase): Observable<Purchase> {
+    // return a subscribe to the post request
+    return this.http.post<Purchase>(this.url, purchase, { headers: this.headers });
 
+  } 
 }
