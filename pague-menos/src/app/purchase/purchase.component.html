@@ -9,7 +9,7 @@
             <input type="text" matInput [formControl]="productControl" [matAutocomplete]="prodAuto" id="description"
                name="description" />
             <div [hidden]="productControl.valid || productControl.pristine" class="alert alert-danger">
-               O nome do produto é obrigatório.
+               A descrição do produto é obrigatória.
             </div>
             <mat-autocomplete #prodAuto="matAutocomplete">
                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -68,7 +68,7 @@
          <input (input)="calculateUnitPrice()" type="number" step=".01" class="form-control" id="totalPrice" #totPrice="ngModel" required
             [(ngModel)]="purchase.totalPrice" name="totalPrice">
          <div [hidden]="totPrice.valid || totPrice.pristine" class="alert alert-danger">
-            O valor total é obrigatório
+            O valor total é obrigatório.
          </div>
       </div>
       <div class="col-sm-12">
